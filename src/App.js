@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import axios from 'axios';
+import * as config from './config';
+// https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
+const API_ENDPOINT = `https://api.themoviedb.org/4/list?api_key=${config.API_KEY}`
+class App extends React.Component {
+  state = {
+    data: []
+  }
+  async componentDidMount() {
+    const res = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${config.API_KEY}`);
+    const data = res.data.results;
+    this.setState({
+      data
+    });
+    
+  }
+  render() {
+    const { data } = this.state;
+    console.log(data);
+    const result = data.map((item, index) => (
+      <div key={index}>
+        <img src={'https://image.tmdb.org/t/p/w400/' + item.poster_path} />
+        <p>{item.title}</p>
+      </div>
+    ))
+    return (
+      <div className="App">
+        <div style={{}}>
+          {result}
+        </div>
+        
+      </div>
+    );
+  }
 }
 
 export default App;
