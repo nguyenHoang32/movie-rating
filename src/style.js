@@ -5,7 +5,9 @@ const style =  (theme) => ({
     top: 0,
     zIndex: 99,
     width: '100%',
-    backgroundColor: "#75C0E0",
+    backgroundColor: theme.palette.primary.main,
+    display: 'flex',
+    shadow: theme.shadows[3],
     '& ul': {
       display: 'flex',
       listStyleType: 'none',
@@ -13,9 +15,19 @@ const style =  (theme) => ({
       '& li': {
         marginRight: theme.spacing(2),
         '& a': {
-          textDecoration: 'none'
+          textDecoration: 'none',
+          color: 'white',
+          fontWeight: 'bold'
         }
       }
+    }
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    '& button': {
+      color: 'white',
+    fontWeight: 'bold'
     }
   }
 });
